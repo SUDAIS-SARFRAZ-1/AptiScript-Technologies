@@ -80,7 +80,8 @@ Hard constraints. These override convenience, speed of writing code, or a "simpl
 
 ## Git & Version Control
 47. Commit messages describe the *why*, not just the *what*, for anything beyond a trivial content change.
-48. Feature branches off `main`; no direct commits to the protected branch once the team is more than one person deep on this repo.
+48. Two protected branches: `main` (production) and `develop` (staging). Feature branches (`feature/<name>`) branch off `develop` and merge back via PR — never commit directly to `main` or `develop`. `develop` merges into `main` via PR when a release is ready. Urgent production-only fixes use a `hotfix/<name>` branch off `main`, PR'd into `main`, then back-merged into `develop` so the fix isn't lost.
+48a. Both `main` and `develop` require a passing CI check (`lint-typecheck-build`) before merge; branch protection also blocks force-pushes and branch deletion on both.
 49. `.env`, `node_modules`, and `.next` build output stay out of version control via `.gitignore`.
 
 ## Dependency Management
