@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { BUSINESS_EMAIL, WHATSAPP_LINK, WHATSAPP_NUMBER_DISPLAY } from "@/lib/contact";
 
 const COMPANY_LINKS = [
   { href: "/about", label: "About" },
@@ -27,10 +28,30 @@ export function Footer() {
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               Building Next Generation Software — a full-service software house for web, mobile, backend, and cloud.
             </p>
+            <ul className="mt-4 space-y-2">
+              <li>
+                <a
+                  href={`mailto:${BUSINESS_EMAIL}`}
+                  className="text-sm text-muted-foreground hover:text-brand"
+                >
+                  {BUSINESS_EMAIL}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-brand"
+                >
+                  {WHATSAPP_NUMBER_DISPLAY} (WhatsApp)
+                </a>
+              </li>
+            </ul>
             {/*
-              Business contact details (email, phone/WhatsApp) and registration
-              number/location are added here once provided — see prd.md §6.7.
-              No placeholder contact info ships per rules.md §1.
+              Business registration number/NTN and city/location are added
+              here once available — see prd.md §6.7 and §12 (Risks).
+              No placeholder content ships per rules.md §1.
             */}
           </div>
 
