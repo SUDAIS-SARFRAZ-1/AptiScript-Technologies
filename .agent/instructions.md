@@ -98,9 +98,9 @@ public/                     # images, logos, favicon
 - Tests run in CI on every PR; a failing test blocks merge.
 
 ## 9. Deployment & Environments
-- Two branches map to two live environments on Vercel: `main` is the Production Branch (deploys to the production domain), `develop` gets a stable branch preview URL that serves as staging. Every other branch/PR gets its own ephemeral preview deployment. See `rules.md` §48 for the branching/PR model.
-- GitHub Actions (`.github/workflows/ci.yml`) runs lint, typecheck, and build on every PR into and push to `main` or `develop` — this gates merges independently of Vercel's own build.
-- Any service with test/live key distinction (CAPTCHA, analytics, email provider) uses test keys on `develop`/preview and live keys only in production, scoped per-environment in Vercel's Environment Variables settings.
+- Single-branch workflow (see `rules.md` §48): work happens directly on `main`, which is Vercel's Production Branch — every push deploys straight to production. No `develop`/staging branch, no CI pipeline, no required PRs. This is a deliberate simplification for this project's size and stage.
+- Run lint, typecheck, and build locally before pushing (`rules.md` §44) — there's no CI to catch a broken build after the fact.
+- Any service with a test/live key distinction (CAPTCHA, analytics, email provider) still uses live keys only, since there's no separate staging environment right now.
 
 ## 10. Accessibility & SEO Baseline
 - WCAG 2.1 AA contrast, full keyboard navigability, semantic HTML (NFR 8.6).

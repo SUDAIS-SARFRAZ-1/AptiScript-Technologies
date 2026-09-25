@@ -72,7 +72,7 @@ Hard constraints. These override convenience, speed of writing code, or a "simpl
 ## Testing
 42. The contact form's validation logic (required fields, email format, spam-protection integration) has at least one automated test — this is the one piece of real "business logic" this site has, and it directly affects lead generation (`prd.md` §11 KPIs).
 43. A critical-path end-to-end check (can a visitor find a service, reach the contact form, and successfully submit it) exists before launch, even if the rest of the test suite stays light for a mostly-static site.
-44. Tests run in CI on every pull request; a red test blocks merge.
+44. There is no CI pipeline on this project (a deliberate choice — see §48). Run lint, typecheck, and build locally before pushing to `main`; nothing else catches a broken build.
 
 ## Environment & Secrets
 45. Staging (preview deploys) and production use separate credentials for any third-party service (email delivery, CAPTCHA, analytics) where the provider distinguishes test/live keys.
@@ -80,8 +80,7 @@ Hard constraints. These override convenience, speed of writing code, or a "simpl
 
 ## Git & Version Control
 47. Commit messages describe the *why*, not just the *what*, for anything beyond a trivial content change.
-48. Two protected branches: `main` (production) and `develop` (staging). Feature branches (`feature/<name>`) branch off `develop` and merge back via PR — never commit directly to `main` or `develop`. `develop` merges into `main` via PR when a release is ready. Urgent production-only fixes use a `hotfix/<name>` branch off `main`, PR'd into `main`, then back-merged into `develop` so the fix isn't lost.
-48a. Both `main` and `develop` require a passing CI check (`lint-typecheck-build`) before merge; branch protection also blocks force-pushes and branch deletion on both.
+48. Single-branch workflow: work directly on `main`, no `develop`, no feature branches, no required PRs, no CI gate. This was deliberately simplified from an earlier `develop`/feature-branch/CI setup — this project's size and single-developer stage didn't justify that overhead. Revisit if the team actually grows into the repo.
 49. `.env`, `node_modules`, and `.next` build output stay out of version control via `.gitignore`.
 
 ## Dependency Management
